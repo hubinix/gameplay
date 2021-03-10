@@ -50,7 +50,9 @@ func (s *server) Run(ctx context.Context, port int) error {
 	router := http.NewServeMux()
 	router.Handle("/healthz", s.healthz())
 	router.Handle("/join", s.join())
-
+	router.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		serveWs(w, r)
+	})
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", port),
 		Handler: router,

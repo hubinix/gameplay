@@ -11,7 +11,6 @@ import (
 
 	"github.com/jessevdk/go-flags"
 
-	"github.com/hubinix/gameplay/internal/db"
 	"github.com/hubinix/gameplay/pkg/logger"
 	"github.com/hubinix/gameplay/pkg/signals"
 	"os"
@@ -36,7 +35,7 @@ const (
 	// defaultDaprSystemConfigName is the default resource object name for Dapr System Config
 	defaultDaprSystemConfigName = "daprsystem"
 
-	profFile    = "./frontier-meta.prof"
+	profFile    = "./gameplay.prof"
 	healthzPort = 8087
 )
 
@@ -71,7 +70,7 @@ func main() {
 			log.Fatalf("failed to start healthz server: %s", err)
 		}
 	}()
-	db.GetDynamodbManager().Start(ctx)
+	//	db.GetDynamodbManager().Start(ctx)
 	<-stop
 	shutdownDuration := 5 * time.Second
 	log.Infof("allowing %s for graceful shutdown to complete", shutdownDuration)
